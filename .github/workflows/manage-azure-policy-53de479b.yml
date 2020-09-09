@@ -1,0 +1,25 @@
+name: manage-azure-policy-53de479b
+on:
+  push:
+    paths:
+      - 'policies/_Preview_:_Do_not_allow_privileged_containers_in_Kubernetes_cluster_95edb821-ddaf-4404-9732-666045e056b4/**'
+      - 'policies/Allowed_Resource_Locations_RMPM_Custom_c3dd5a25-331f-41e5-b81b-17b4b4fbec6b/**'
+      - 'policies/_Preview_:_Ensure_only_allowed_container_images_in_Kubernetes_cluster_febd0533-8e55-448f-b837-bd0e06f16469/**'
+      - .github/workflows/manage-azure-policy-53de479b.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_53de479b}}
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/_Preview_:_Do_not_allow_privileged_containers_in_Kubernetes_cluster_95edb821-ddaf-4404-9732-666045e056b4/**
+          policies/Allowed_Resource_Locations_RMPM_Custom_c3dd5a25-331f-41e5-b81b-17b4b4fbec6b/**
+          policies/_Preview_:_Ensure_only_allowed_container_images_in_Kubernetes_cluster_febd0533-8e55-448f-b837-bd0e06f16469/**
